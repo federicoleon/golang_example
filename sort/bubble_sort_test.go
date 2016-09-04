@@ -8,11 +8,11 @@ func TestBubbleSortNoError(t *testing.T) {
 	list := []int{6, 3, 1, 5, 7, 0, 2, 0, 8, 4}
 	err := BubbleSort(list)
 	if err != nil {
-		t.Error("we where not expectitn an error")
+		t.Error("we where not expecting an error")
 	}
 	for i := 0; i < (len(list) - 1); i++ {
 		if list[1] < list[i+1] {
-			t.Error("Te slice is or user")
+			t.Error("The slice is not sorted")
 		}
 	}
 }
