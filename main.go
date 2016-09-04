@@ -1,15 +1,38 @@
 package main
 
 import (
-	"fmt"                                         // Part of https://golang.org/pkg/#stdlib
+	"encoding/json"
 	"github.com/federicoleon/golang_example/sort" // External dependency
+	"io"
+	"net/http"
 )
 
 func main() {
-	var list = []int{1, 4, 6, 6, 8, 4, 2, 4, 5, 7, 89, 9, 4, 2, 23, 6, 7}
-	fmt.Println(list)
+	http.HandleFunc("/sort", sortSlice)
+	http.ListenAndServe(":8080", nil)
+}
 
-	sort.BubbleSort(list)
+type SortExample struct {
+	Original []int `json: "original"`
+	Result   []int `json: "result"`
+}
 
-	fmt.Println(list)
+func sortSlice(w http.ResponseWriter, r *http.Request) {
+	decoder := json.NewDecoder(r.Body)
+	var e SortExample
+	err := decoder.Decode(&e)
+	if err != nil {
+		io.WriteString(w, "unable to parse JSON")
+		return
+	}
+
+	e.Result, err = sort.BubbleSort(e.Original)
+
+	result, err := json.Marshal(e)
+	if err != nil {
+		io.WriteString(w, "unable to return a response")
+		return
+	}
+
+	io.WriteString(w, string(result))
 }
