@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/federicoleon/golang_example/sort" // External dependency
 	"io"
 	"net/http"
@@ -9,6 +10,7 @@ import (
 
 func main() {
 	http.HandleFunc("/sort", sortSlice)
+	fmt.Println("Webserver ready for traffic :-)")
 	http.ListenAndServe(":8080", nil)
 }
 
