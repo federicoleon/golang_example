@@ -6,9 +6,12 @@ import (
 	"github.com/federicoleon/golang_example/webserver/sort" // External dependency
 	"io"
 	"net/http"
+	"runtime"
 )
 
 func main() {
+	coreNum := runtime.NumCPU()
+	runtime.GOMAXPROCS(coreNum)
 	http.HandleFunc("/sort", sortSlice)
 	fmt.Println("Webserver ready for traffic :-)")
 	http.ListenAndServe(":8080", nil)
@@ -36,5 +39,9 @@ func sortSlice(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	io.WriteString(w, string(result))
+	resp := string(result)
+
+	fmt.Println(resp)
+
+	io.WriteString(w, resp)
 }
