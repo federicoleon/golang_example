@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/federicoleon/golang_example/sort" // External dependency
+	"github.com/federicoleon/golang_example/webserver/sort" // External dependency
 	"io"
 	"net/http"
 )
