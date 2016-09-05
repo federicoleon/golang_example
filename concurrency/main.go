@@ -36,7 +36,7 @@ func main() {
 	}
 	wg.Wait()
 	elapsed := time.Since(start)
-	fmt.Println(fmt.Sprintf("10K took %s", elapsed))
+	fmt.Println(fmt.Sprintf("%d took %s", LIMIT, elapsed))
 }
 
 func getOrder(c chan string) {
